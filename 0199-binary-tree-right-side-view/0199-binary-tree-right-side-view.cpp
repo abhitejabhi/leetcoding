@@ -11,23 +11,24 @@
  */
 class Solution {
 public:
-    void rsv(TreeNode *root,int level,vector<int>&v)
+    void dfs(TreeNode* root,int level,vector<int>&ans)
     {
+        
         if(root==NULL)
         {
             return ;
         }
-        if(level==v.size())
+        if(level==ans.size())
         {
-            v.push_back(root->val);
+            ans.push_back(root->val);
         }
-        rsv(root->right,level+1,v);
-        rsv(root->left,level+1,v);
+        dfs(root->right,level+1,ans);
+        dfs(root->left,level+1,ans);
     }
     vector<int> rightSideView(TreeNode* root) {
         int level=0;
-       vector<int>ans;
-        rsv(root,level,ans);
+        vector<int>ans;
+        dfs(root,level,ans);
         return ans;
     }
 };
