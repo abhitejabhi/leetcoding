@@ -110,35 +110,35 @@ class Solution
         {
             return ans;
         }
-        map<int,int>mp;
-        queue<pair<Node *,int>>q;
+        map<int,int>mpp;
+        queue<pair<Node*,int>>q;
         q.push({root,0});
         while(!q.empty())
         {
-            auto p=q.front();
+            auto it=q.front();
             q.pop();
-            int x=p.second;
-            Node* node=p.first;
-            if(mp.find(x)==mp.end())
+            Node *temp=it.first;
+            int x=it.second;
+            if(mpp.find(x)==mpp.end())
             {
-                mp[x]=node->data;
+                mpp[x]=temp->data;
             }
-            if(node->left)
+            if(temp->left!=NULL)
             {
-                q.push({node->left,x-1});
-            }if(node->right)
-            {
-                q.push({node->right,x+1});
+                q.push({temp->left,x-1});
             }
-          
+            if(temp->right!=NULL)
+            {
+                q.push({temp->right,x+1});
+            }
         }
-        for(auto p:mp)
+        for(auto it:mpp)
         {
-            ans.push_back(p.second);
+            ans.push_back(it.second);
         }
         return ans;
     }
-    
+
 };
 
 
