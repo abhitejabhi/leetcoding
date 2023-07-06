@@ -12,7 +12,7 @@ public:
                 sum -= nums[i];
                 i++;
             }
-           if(mp[nums[j]]==1)sum+=nums[j];
+           sum+=nums[j];
             ans = max(ans, sum);
             j++;
         }
