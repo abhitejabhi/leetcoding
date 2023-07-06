@@ -8,12 +8,12 @@ public:
              mp[nums[j]]++;
             
             while (mp[nums[j]] > 1) {
-                ans = max(ans, sum);
                 mp[nums[i]]--;
                 sum -= nums[i];
                 i++;
             }
            if(mp[nums[j]]==1)sum+=nums[j];
+            ans = max(ans, sum);
             j++;
         }
         return max(ans,sum);
