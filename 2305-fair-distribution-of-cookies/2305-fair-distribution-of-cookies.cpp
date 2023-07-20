@@ -1,32 +1,28 @@
 class Solution {
 public:
-     int result = INT_MAX;
+    int result=INT_MAX;
     int n;
-    
-    void solve(int idx, vector<int>& cookies, vector<int>& children, int k) {
-        if(idx == cookies.size()) {
-            
-            int ans = *max_element(begin(children), end(children));
-            result = min(result, ans);
-            return;
+    void solve(int ind,vector<int>&cookies,int k,vector<int>&child)
+    {
+        if(ind>=n)
+        {
+            int temp=*max_element(child.begin(),child.end());
+            result=min(result,temp);
+            return ;
         }
-        
-        int candy = cookies[idx];
-        for(int i = 0; i<k; i++) {
-            children[i] += candy;
-            
-            solve(idx+1, cookies, children, k);
-            
-            children[i] -= candy;
+        int cookie=cookies[ind];
+        for(int i=0;i<k;i++)
+        {   
+            child[i]+=cookie;
+            if(child[i]==0)break;
+            solve(ind+1,cookies,k,child);
+            child[i]-=cookie;
         }
-        
     }
-    
     int distributeCookies(vector<int>& cookies, int k) {
-        n = cookies.size();
-        vector<int> children(k);
-        solve(0, cookies, children, k);
-        
+        n=cookies.size();
+        vector<int>child(k,0);
+        solve(0,cookies,k,child);
         return result;
     }
 };
