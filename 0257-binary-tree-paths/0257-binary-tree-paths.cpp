@@ -16,21 +16,34 @@ using namespace std;
 
 class Solution {
 public:
-    void f(TreeNode* root, vector<string>& ans, string temp) // Pass 'temp' by value to avoid conflicts between different paths
-    {
+    void f(TreeNode* root, vector<string>& ans, string& temp) {
         if (root == nullptr) {
             return;
         }
 
+        // Add the current node value to the path
+        if (!temp.empty()) {
+            temp += "->";
+        }
+        temp += to_string(root->val);
+
         if (root->left == nullptr && root->right == nullptr) {
-            temp += to_string(root->val);
+            // Reached a leaf node, add the path to the answer
             ans.push_back(temp);
-            return;
+        } else {
+            // Continue exploring the left and right subtrees
+            f(root->left, ans, temp);
+            f(root->right, ans, temp);
         }
 
-        temp += to_string(root->val) + "->";
-        f(root->left, ans, temp);
-        f(root->right, ans, temp);
+        // Backtrack by removing the current node value from the path
+        int len = to_string(root->val).length();
+        if (!temp.empty()) {
+            temp.erase(temp.length() - len); // Remove the last part of the path
+            if (!temp.empty()) {
+                temp.erase(temp.length() - 2); // Remove "->" separator
+            }
+        }
     }
 
     vector<string> binaryTreePaths(TreeNode* root) {
