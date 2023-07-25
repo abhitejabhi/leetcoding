@@ -1,24 +1,17 @@
 class Solution {
 public:
-    int numDifferentIntegers(string s) {
-        // Replace non-digit characters with spaces
-        for (char& c : s) {
-            if (!isdigit(c)) {
-                c = ' ';
+    int numDifferentIntegers(string word) {
+        set<string> wset;  
+        for (int i = 0; i < word.size(); i++) {
+            if (isdigit(word[i])) {
+			    string str;
+                while (word[i] == '0')
+                    i++;
+                while (isdigit(word[i]))
+                    str += word[i++];
+                wset.insert(str);
             }
         }
-        
-        set<string> st; // Use set to store unique integers as strings
-        istringstream iss(s);
-        string temp;
-        
-        // Extract and store integers as strings in the set
-        while (iss >> temp) {
-            // Remove leading zeros from the number (if any)
-            temp.erase(0, min(temp.find_first_not_of('0'), temp.size() - 1));
-            st.insert(temp);
-        }
-        
-        return st.size();
+        return wset.size();
     }
 };
