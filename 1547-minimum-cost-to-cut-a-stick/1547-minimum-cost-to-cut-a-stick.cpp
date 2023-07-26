@@ -1,36 +1,25 @@
 class Solution {
 public:
-    int t[103][103];
-    int solve(vector<int>& cuts, int left, int right) {
-        
-        if(right - left == 1)
+    int f(vector<int>&cuts,int l,int r,vector<vector<int>>&dp)
+    {
+        if(r-l<2)
+        {
             return 0;
-        
-        if(t[left][right] != -1)
-            return t[left][right];
-        
-        int result = INT_MAX;
-        
-        for(int index = left+1; index <= right-1; index++) {
-            
-            int cost = solve(cuts, left, index) + solve(cuts, index, right) + (cuts[right] - cuts[left]);
-            
-            result = min(result, cost);
-            
         }
-        
-        return t[left][right] = result;
-        
+        if(dp[l][r]!=-1)return dp[l][r];
+        int res=INT_MAX;
+        for(int idx=l+1;idx<=r-1;idx++)
+        {
+            int cost=cuts[r]-cuts[l]+f(cuts,l,idx,dp)+f(cuts,idx,r,dp);
+            res=min(res,cost);
+        }
+        return dp[l][r]=res;
     }
-    
     int minCost(int n, vector<int>& cuts) {
-        sort(begin(cuts), end(cuts));
-        
-        cuts.insert(begin(cuts), 0);
+        vector<vector<int>>dp(103,vector<int>(103,-1));
+        sort(cuts.begin(),cuts.end());
+        cuts.insert(cuts.begin(),0);
         cuts.push_back(n);
-        memset(t, -1, sizeof(t));
-        return solve(cuts, 0, cuts.size()-1);
-       
-        
+        return f(cuts,0,cuts.size()-1,dp);
     }
 };
