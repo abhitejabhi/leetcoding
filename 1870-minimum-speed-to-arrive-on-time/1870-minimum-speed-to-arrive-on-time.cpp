@@ -31,6 +31,6 @@ public:
 
         cout << ans << endl;
         if (ans == -1) return -1;
-        return ans;
+        return low;
     }
 };
