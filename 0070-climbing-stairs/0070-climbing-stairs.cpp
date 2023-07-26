@@ -1,13 +1,21 @@
 class Solution {
 public:
-   int findWays(int n, vector<int> &dp)
-    {
-        if (n <= 1) return 1;
-        if (dp[n] != -1) return dp[n];//already solved subproblems
-        return dp[n]=findWays(n - 1, dp) + findWays(n - 2, dp); //store the result of subproblem in dp array
+    int solve(int n, vector<int>& dp) {
+        // Base cases
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+
+        if (dp[n] != -1) return dp[n];
+
+        dp[n] = solve(n - 1, dp) + solve(n - 2, dp);
+        return dp[n];
     }
+
     int climbStairs(int n) {
-        vector<int>dp(n+1,-1); //fill all values with -1
-        return findWays(n,dp);
+        if (n <= 2) return n;
+
+        vector<int> dp(n + 1, -1);
+        return solve(n, dp);
     }
 };
