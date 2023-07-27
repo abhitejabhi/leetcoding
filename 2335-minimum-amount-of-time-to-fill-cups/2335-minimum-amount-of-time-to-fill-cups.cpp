@@ -1,13 +1,28 @@
 class Solution {
 public:
     int fillCups(vector<int>& amount) {
-        int maxi=0;
-        int total =0;
-        for(int i=0;i<amount.size();i++){
-            total+=amount[i];
-            maxi=max(maxi,amount[i]);
+        priority_queue<int,vector<int>>pq;
+        for(auto it:amount)
+        {
+            pq.push(it);
         }
-       
-        return max(maxi,(total+1)/2);
+        int ans=0;
+        while(!pq.empty())
+        {
+            int first=pq.top();
+            pq.pop();
+            int second=pq.top();
+            pq.pop();
+            if(first<=0&&second<=0)
+            {
+                break;
+            }
+            first--;
+            second--;
+            pq.push(first);
+            pq.push(second);
+            ans++;
+        }
+        return ans;
     }
 };
