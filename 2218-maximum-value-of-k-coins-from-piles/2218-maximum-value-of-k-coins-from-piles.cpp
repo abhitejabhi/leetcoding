@@ -18,7 +18,7 @@ public:
         
         //Taking - all possible configurations (1, 2, ... k)
         int sum = 0;
-        for(int j = 0; j < min((int)piles[i].size(), k); j++) {
+        for(int j = 0; j <min((int)piles[i].size(),k); j++) {
             
             sum += piles[i][j];
             
