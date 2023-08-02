@@ -1,22 +1,38 @@
 class Solution {
 public:
-    void function(int ind,vector<int>nums,vector<vector<int>>&ans)
-    {
-        if(ind==nums.size())
-        {
-            ans.push_back(nums);
-            return ;
+    vector<vector<int>> result;
+    unordered_set<int> st;
+    int n;
+    
+    void solve(vector<int>& temp, vector<int>& nums) {
+
+        if(temp.size() == n) {
+            result.push_back(temp);
+            return;
         }
-        for(int i=ind;i<nums.size();i++)
-        {
-            swap(nums[ind],nums[i]);
-            function(ind+1,nums,ans);
-            
+        
+        for(int i = 0; i<n; i++) {
+            if(st.find(nums[i]) == st.end()) {
+                temp.push_back(nums[i]);
+                st.insert(nums[i]);
+
+                solve(temp, nums);
+
+                st.erase(nums[i]);
+                temp.pop_back();
+            }
         }
+        
+        
     }
+    
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>>ans;
-        function(0,nums,ans);
-        return ans;
+        n = nums.size();
+        
+        vector<int> temp;
+        
+        solve(temp, nums);
+        
+        return result;
     }
 };
