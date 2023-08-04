@@ -7,7 +7,7 @@ public:
             return n;
         
         vector<vector<int>> t(n, vector<int>(1001,0));
-        //t[i][j] = Max AP length till ith index (0 to i) having common difference j
+       
 
         int result = 0;
         
@@ -15,7 +15,7 @@ public:
             
             for (int j=0; j<i; j++) {
                 
-                int diff    = nums[i] - nums[j] + 500; //to avoid negative diff
+                int diff    = nums[i] - nums[j] + 500;
                 
                 t[i][diff] = t[j][diff] > 0 ? t[j][diff] + 1 : 2;
                 
