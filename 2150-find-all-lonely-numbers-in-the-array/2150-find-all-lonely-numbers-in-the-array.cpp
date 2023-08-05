@@ -11,7 +11,7 @@ public:
         {
             int x=it.first;
             int y=it.second;
-            if(y==1&&mp.count(x-1)==0&&mp.count(x+1)==0)
+            if(y==1&&mp.find(x-1)==mp.end()&&mp.find(x+1)==mp.end())
             {
                 ans.push_back(x);
             }
