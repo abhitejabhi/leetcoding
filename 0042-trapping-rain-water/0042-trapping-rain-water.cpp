@@ -1,30 +1,32 @@
 class Solution {
 public:
-    vector<int> getLeftMax(vector<int>& height, int n) {
-        vector<int> leftMax(n);
-        leftMax[0] = height[0];
-        for(int i = 1; i<n; i++) {
-            leftMax[i] = max(leftMax[i-1], height[i]);
+    vector<int> f(vector<int>& height, int n) {
+        vector<int> lmax(n, 0);
+        lmax[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            lmax[i] = max(lmax[i - 1], height[i]);
         }
-        return leftMax;
+        return lmax;
     }
-    vector<int> getRightMax(vector<int>& height, int n) {
-        vector<int> rightMax(n);
-        rightMax[n-1] = height[n-1];
-        for(int i = n-2; i>=0; i--) {
-            rightMax[i] = max(rightMax[i+1], height[i]);
+
+    vector<int> f1(vector<int>& height, int n) {
+        vector<int> rmax(n, 0);
+        rmax[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            rmax[i] = max(rmax[i + 1], height[i]);
         }
-        return rightMax;
-    } 
+        return rmax;
+    }
+
     int trap(vector<int>& height) {
         int n = height.size();
-        if(n == 1 || n == 0)
-            return 0;
-        vector<int> leftMax = getLeftMax(height, n);
-        vector<int> rightMax = getRightMax(height, n);
         int sum = 0;
-        for(int i = 0; i<n; i++) {
-            sum += min(leftMax[i], rightMax[i]) - height[i];
+        vector<int> lmax = f(height, n);
+        vector<int> rmax = f1(height, n);
+
+        for (int i = 0; i < n; i++) {
+            int hei = (min(lmax[i], rmax[i]) - height[i]);
+            sum += hei;
         }
         return sum;
     }
