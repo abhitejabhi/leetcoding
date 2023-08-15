@@ -1,7 +1,3 @@
-#include <map>
-#include <vector>
-#include <algorithm>
-
 class Solution {
 public:
     static bool comp(pair<char,int>p1,pair<char,int>p2)
