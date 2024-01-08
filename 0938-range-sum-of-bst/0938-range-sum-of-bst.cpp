@@ -11,38 +11,20 @@
  */
 class Solution {
 public:
-     TreeNode *bst(TreeNode *root,int key)
-     {
-         if(root==NULL)
-         {
-             return NULL;
-         }
-         while(root!=NULL&&root->val!=key)
-         {
-             if(root->val<key)
-             {
-                 root=root->right;
-             }else
-             {
-                 root=root->left;
-             }
-         }
-         return root;
-     }  
-    int rangeSumBST(TreeNode* root, int low, int high) {
+    int f(TreeNode* root,int low,int high)
+    {
         int sum=0;
-        for(int i=low;i<=high;i++)
+        if(root==NULL)return 0;
+        if(root->val>=low&&root->val<=high)
         {
-            TreeNode *node=bst(root,i);
-            if(node==NULL)
-            {
-                sum+=0;
-            }else
-            {
-                sum+=node->val;
-            }
-            
+           sum+=root->val;   
         }
+        sum+=f(root->left,low,high);
+        sum+=f(root->right,low,high);
         return sum;
+    }
+    int rangeSumBST(TreeNode* root, int low, int high) {
+       // int sum=0;
+        return f(root,low,high);
     }
 };
