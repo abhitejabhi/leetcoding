@@ -1,42 +1,32 @@
 class Solution {
 public:
-    bool ispossible(vector<int>&nums,int cap,int days)
-    {   int sum=0;
-        int cnt=1;
-        for(int i=0;i<nums.size();i++)
-        {   sum+=nums[i];
-            if(sum>cap)
-            {
-                sum=nums[i];
-                cnt++;
+    int f(int mid, vector<int>& weights, int days) {
+        int n = weights.size();
+        int temp = 0;
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (temp + weights[i] <= mid) {
+                temp += weights[i];
+            } else {
+                temp = weights[i];
+                ans++;
             }
         }
-     if(cnt<=days)
-     {
-         return true;
-     }
-     return false;
+        ans++; // Increment for the last set of weights if not processed
+        return (ans <= days);
     }
+
     int shipWithinDays(vector<int>& weights, int days) {
-      int maxi=0;
-      int sum=0;
-      for(int i=0;i<weights.size();i++)
-      {
-          sum+=weights[i];
-          maxi=max(maxi,weights[i]);
-      }
-        int low=maxi;
-        int high=sum;
-        int ans=0;
-        while(low<=high)
-        {   int mid=low+(high-low)/2;
-            if(ispossible(weights,mid,days))
-            {
-                ans=mid;
-                high=mid-1;
-            }else
-            {
-                low=mid+1;
+        int low = *max_element(weights.begin(), weights.end()); // Minimum possible weight to ship
+        int high = accumulate(weights.begin(), weights.end(), 0); // Maximum possible weight to ship
+        int ans = 0;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (f(mid, weights, days)) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
             }
         }
         return ans;
