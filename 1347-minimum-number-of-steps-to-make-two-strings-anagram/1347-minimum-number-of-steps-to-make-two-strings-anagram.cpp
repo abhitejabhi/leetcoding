@@ -6,21 +6,18 @@ public:
         {
             mp[it]++;
         }
-        for(auto it:t )
+        for(auto it:t)
         {
-            mp[it]--;
+           if(mp[it]>0)
+           {
+               mp[it]--;
+           }
         }
         int cnt=0;
-        for(auto it:mp){
-            if(it.second<0)
-            {
-                cnt+=(-1*it.second);
-            }
-            else
-            {
-                cnt+=it.second;
-            }
+        for(auto it:mp)
+        {
+            cnt+=it.second;
         }
-        return cnt/2;
+        return cnt;
     }
 };
