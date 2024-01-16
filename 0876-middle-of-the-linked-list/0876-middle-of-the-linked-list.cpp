@@ -15,12 +15,12 @@ public:
         ListNode*temp=head;
         while(temp!=NULL)
         {
-            cnt++;
             temp=temp->next;
+            cnt++;
         }
-        int n=cnt/2;
+        cnt=cnt/2;
         temp=head;
-        while(n--)
+        for(int i=0;i<cnt;i++)
         {
             temp=temp->next;
         }
